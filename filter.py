@@ -86,6 +86,33 @@ class TestFilterMethods(unittest.TestCase):
         self.assertFalse(self.arthur.contains("My name is"))
         self.assertFalse(self.arthur.contains("none of your business"))
 
+    def test_mimicking(self):
+        """
+            This test doesn't test a function, like all the others, but rather whether or a Bloom_Filter functions at least akin to an actual set
+        """
+
+        reference = set()
+
+        self.arthur.add("Z")
+        reference.add("Z")
+        self.assertEqual(self.arthur.contains("Z"), "Z" in reference)
+        self.assertEqual(self.arthur.contains("crashing"), "crashing" in reference)
+
+        self.arthur.add("\x01")
+        reference.add("\x01")
+        self.assertEqual(self.arthur.contains("\x01"), "\x01" in reference)
+        self.assertEqual(self.arthur.contains("crashing"), "crashing" in reference)
+        
+        self.arthur.add("Z\x01")
+        reference.add("Z\x01")
+        self.assertEqual(self.arthur.contains("Z\x01"), "Z\x01" in reference)
+        self.assertEqual(self.arthur.contains("crashing"), "crashing" in reference)
+        
+        self.arthur.add("frank")
+        reference.add("frank")
+        self.assertEqual(self.arthur.contains("frank"), "frank" in reference)
+        self.assertEqual(self.arthur.contains("crashing"), "crashing" in reference)
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFilterMethods)
     unittest.TextTestRunner(verbosity=2).run(suite)
