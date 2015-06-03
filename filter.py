@@ -10,7 +10,18 @@ class Bloom_Filter():
     def add(self, word):
         self.filter = self.hash_word(word)
 
-    def contains(self, word): pass
+    def contains(self, word):
+        bloom_filter = self.filter
+        in_question = self.hash_word(word)
+
+        while(bloom_filter >= 1):
+            if bloom_filter % 2 != in_question % 2: return False
+            
+            bloom_filter /= 2
+            in_question /= 2
+
+        return True
+
 
     def hash_word(self, word):
         return self.filter | ((self.hash_sum(word) << 10) + self.hash_length(word))
@@ -60,6 +71,19 @@ class TestFilterMethods(unittest.TestCase):
         self.assertEqual(self.arthur.filter,     0b00010110110000000011)
         self.arthur.add("frank")
         self.assertEqual(self.arthur.filter,     0b10010110110000000111)
+
+    def test_contains(self):
+        self.arthur.add("Z")
+        self.assertTrue(self.arthur.contains("Z"))
+        self.arthur.add("\x01")
+        self.assertTrue(self.arthur.contains("\x01"))
+        self.arthur.add("Z\x01")
+        self.assertTrue(self.arthur.contains("Z\x01"))
+        self.arthur.add("frank")
+        self.assertTrue(self.arthur.contains("frank"))
+
+        self.assertFalse(self.arthur.contains("My name is"))
+        self.assertFalse(self.arthur.contains("none of your business"))
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFilterMethods)
