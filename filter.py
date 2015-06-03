@@ -39,6 +39,10 @@ class TestFilterMethods(unittest.TestCase):
         
         self.arthur = Bloom_Filter()
 
+    def tearDown(self):
+        # this is just resetting the filter after each test to prevent them fromm interfereing
+        self.arthur.filter = 0
+
     def test_hash_sum(self):
         self.assertEqual(self.arthur.hash_sum('hello'), 532)
         self.assertEqual(self.arthur.hash_sum('world'), 552)
