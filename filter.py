@@ -51,9 +51,9 @@ class TestFilterMethods(unittest.TestCase):
 
     def test_hash_length(self):
         self.assertEqual(self.arthur.hash_length('Hello!'), 6)
-        self.assertEqual(self.arthur.hash_length('My'), 2)
-        self.assertEqual(self.arthur.hash_length('name'), 4)
-        self.assertEqual(self.arthur.hash_length('is'), 2)
+        self.assertEqual(self.arthur.hash_length('My'),     2)
+        self.assertEqual(self.arthur.hash_length('name'),   4)
+        self.assertEqual(self.arthur.hash_length('is'),     2)
         self.assertEqual(self.arthur.hash_length('none of your business'), 21)
 
     def test_hash_word(self):
