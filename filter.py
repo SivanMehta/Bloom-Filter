@@ -53,13 +53,13 @@ class TestFilterMethods(unittest.TestCase):
 
     def test_add(self):
         self.arthur.add("Z")
-        self.assertEqual(self.arthur.bloom_filter,     0b00010110100000000001)
+        self.assertEqual(self.arthur.filter,     0b00010110100000000001)
         self.arthur.add("\x01")
-        self.assertEqual(self.arthur.bloom_filter,     0b00010110110000000001)
+        self.assertEqual(self.arthur.filter,     0b00010110110000000001)
         self.arthur.add("Z\x01")
-        self.assertEqual(self.arthur.bloom_filter,     0b00010110110000000011)
+        self.assertEqual(self.arthur.filter,     0b00010110110000000011)
         self.arthur.add("frank")
-        self.assertEqual(self.arthur.bloom_filter,     0b10010110110000000111)
+        self.assertEqual(self.arthur.filter,     0b10010110110000000111)
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFilterMethods)
