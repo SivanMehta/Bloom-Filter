@@ -27,6 +27,8 @@ class Bloom_Filter():
 class TestFilterMethods(unittest.TestCase):
 
     def setUp(self):
+        # named after my 9th grade bio teacher, Arthur Bloom
+        
         self.arthur = Bloom_Filter()
 
     def test_hash_sum(self):
