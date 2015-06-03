@@ -2,9 +2,6 @@ import unittest
 
 class Bloom_Filter():
     def __init__(self):
-        self.contents_array = []
-        self.contents_set = ()
-
         self.filter = 0
 
     def add(self, word):
